@@ -1,23 +1,15 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import './App.css';
+import { useNextFilm } from './hooks/useNextFilm';
 
 function App() {
-  const URL = `https://whenisthenextmcufilm.com/api`;
-  // Guardar en caché
-  const [title, setTitle] = useState(null);
-
-
-  useEffect(() => {
-    axios.get(URL)
-      .then(res => setTitle(res.data.title))
-      .catch(err => console.error(err));
-  }, []);
+  const { film, loading } = useNextFilm();
+  if (loading) return <p>Cargando...</p>;
+  console.log(film);
 
   return (
     <>
       <a>Next marvel production:</a><br />
-      <span>{title}</span>
+      {/* <span>{film.title}</span> */}
     </>
   );
 }
